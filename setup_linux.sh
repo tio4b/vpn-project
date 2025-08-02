@@ -2,7 +2,7 @@
 
 set -e
 
-echo "GoVPN Linux Setup Script"
+echo "VPN Linux Setup Script"
 echo "========================"
 
 if [ "$EUID" -ne 0 ]; then
@@ -53,15 +53,15 @@ fi
 
 echo -e "\nCreating systemd service..."
 
-cat > /etc/systemd/system/govpn-server.service << EOF
+cat > /etc/systemd/system/vpn-server.service << EOF
 [Unit]
-Description=GoVPN Server
+Description=VPN Server
 After=network.target
 
 [Service]
 Type=simple
 User=root
-ExecStart=/usr/local/bin/govpn-server -listen :9999 -ip 10.0.0.1
+ExecStart=/usr/local/bin/vpn-server -listen :9999 -ip 10.0.0.1
 Restart=always
 RestartSec=5
 
@@ -69,15 +69,15 @@ RestartSec=5
 WantedBy=multi-user.target
 EOF
 
-cat > /etc/systemd/system/govpn-client.service << EOF
+cat > /etc/systemd/system/vpn-client.service << EOF
 [Unit]
-Description=GoVPN Client
+Description=VPN Client
 After=network.target
 
 [Service]
 Type=simple
 User=root
-ExecStart=/usr/local/bin/govpn-client -server SERVER_ADDRESS:9999 -key SHARED_KEY
+ExecStart=/usr/local/bin/vpn-client -server SERVER_ADDRESS:9999 -key SHARED_KEY
 Restart=always
 RestartSec=5
 
@@ -90,20 +90,20 @@ systemctl daemon-reload
 echo -e "\nSetup completed!"
 echo "=================="
 echo ""
-echo "To build and install GoVPN:"
-echo "  cd /path/to/govpn"
-echo "  go build -o govpn-server ./cmd/server"
-echo "  go build -o govpn-client ./cmd/client"
-echo "  sudo cp govpn-server govpn-client /usr/local/bin/"
+echo "To build and install VPN:"
+echo "  cd /path/to/vpn"
+echo "  go build -o vpn-server ./main/server"
+echo "  go build -o vpn-client ./main/client"
+echo "  sudo cp vpn-server vpn-client /usr/local/bin/"
 echo ""
 echo "To run server:"
-echo "  sudo govpn-server -listen :9999"
+echo "  sudo vpn-server -listen :9999"
 echo ""
 echo "To run client:"
-echo "  sudo govpn-client -server <server-ip>:9999 -key <shared-key>"
+echo "  sudo vpn-client -server <server-ip>:9999 -key <shared-key>"
 echo ""
 echo "To use systemd services:"
-echo "  Edit /etc/systemd/system/govpn-client.service with your server details"
-echo "  sudo systemctl start govpn-server"
-echo "  sudo systemctl enable govpn-server"
+echo "  Edit /etc/systemd/system/vpn-client.service with your server details"
+echo "  sudo systemctl start vpn-server"
+echo "  sudo systemctl enable vpn-server"
 echo ""
