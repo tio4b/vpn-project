@@ -12,10 +12,10 @@ fi
 
 check_command() {
     if ! command -v $1 &> /dev/null; then
-        echo "X $1 is not installed"
+        echo "FAIL $1 is not installed"
         return 1
     else
-        echo "V $1 is installed"
+        echo "OK $1 is installed"
         return 0
     fi
 }
