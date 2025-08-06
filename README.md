@@ -104,37 +104,3 @@ Enter shared key (hex): a1b2c3d4e5f6...
 | `-stats` | `false` | Show traffic statistics |
 | `-log` | `info` | Log level |
 
-## Configuration Examples
-
-### Basic Setup
-
-**Server:**
-```bash
-sudo ./vpn-server
-```
-
-**Client:**
-```bash
-sudo .vpn-client -server 192.168.1.100:9999 -key <key-from-server>
-```
-
-### Custom Network
-
-**Server:**
-```bash
-sudo ./vpn-server -ip 172.16.0.1 -subnet 172.16.0.0/24 -listen :8443
-```
-
-**Client:**
-```bash
-sudo ./vpn-client -server vpn.company.com:8443 -ip 172.16.0.10
-```
-
-### Debug Mode with Statistics
-
-```bash
-sudo ./vpn-client -server vpn.example.com:9999 -log debug -stats
-```
-
-
-
