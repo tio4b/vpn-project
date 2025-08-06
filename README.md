@@ -34,9 +34,6 @@ go get github.com/sirupsen/logrus
 
 go build -o vpn-server ./main/server
 go build -o vpn-client ./main/client
-
-
-sudo cp govpn-server vpn-client /usr/local/bin/
 ```
 
 ### Quick Setup
